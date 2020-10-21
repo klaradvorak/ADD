@@ -1,8 +1,9 @@
 import nltk,os, sys, glob, re, math, random
-
+import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
 dirPath = 'C:\\Users\\klara\\PycharmProjects\\ADD\\venv\\Include\\sentiment labelled sentences\\'
 os.chdir(dirPath)
@@ -12,8 +13,13 @@ allDocumentsContent = []
 with open(os.path.join(dirPath, 'amazon_cells_labelled.txt'), 'r') as reader:
     allDocumentsContent = allDocumentsContent + reader.readlines()
 
+setOfAllWords = set()
+
+#preproccessing
 def textPreproccessing(text, setOfAllWords):
+    #initializes Lemmatizer
     lemmatizer = WordNetLemmatizer()
+    #set of stop words based on Stop wrods library
     stopWords = set(stopwords.words('english'))
     preproccessedTokens = []
 
@@ -30,9 +36,11 @@ def textPreproccessing(text, setOfAllWords):
         #removes stop words
         if not token in stopWords:
             preproccessedTokens.append(token)
+            #adds values to set of all words in all documents
             setOfAllWords.add(token)
     return preproccessedTokens
 
+#determine whether word if present from list of all words or not
 def isFeatured(review):
     reviewWords = set(review)
     wordsOccured = {}
@@ -40,20 +48,44 @@ def isFeatured(review):
         wordsOccured[word] = (word in reviewWords)
     return wordsOccured
 
-random.shuffle(allDocumentsContent)
-listOfAllContent = []
-setOfAllWords = set()
-for review in allDocumentsContent:
-    preproccessedList = textPreproccessing(review, setOfAllWords)
-    listOfAllContent.append((preproccessedList[:-1], preproccessedList[-1]))
+def trainClassifier():
+    #shoufless the position of reviews
+    random.shuffle(allDocumentsContent)
 
-# Train Naive Bayes classifier
-featureSet = [(isFeatured(r), c) for (r,c) in listOfAllContent]
-dataSet = train_test_split(featureSet, test_size= 0.2)
-classifier = nltk.NaiveBayesClassifier.train(dataSet[0])
+    #initials variables
+    listOfAllContent = []
 
-# Test the classifier
-print(nltk.classify.accuracy(classifier, dataSet[1]))
+    #for each review in all documents
+    for review in allDocumentsContent:
+        #applies preprocessing
+        listOfTokens = textPreproccessing(review, setOfAllWords)
+        listOfAllContent.append((listOfTokens[:-1], listOfTokens[-1]))
 
-# Show the most important features as interpreted by Naive Bayes
-classifier.show_most_informative_features(10)
+    # Train Naive Bayes classifier
+    featureSet = [(isFeatured(r), c) for (r,c) in listOfAllContent]
+    dataSet = train_test_split(featureSet, test_size= 0.2)
+    classifier = nltk.NaiveBayesClassifier.train(dataSet[0])
+
+    # Test the classifier
+    return nltk.classify.accuracy(classifier, dataSet[1])
+
+    # Show the most important features as interpreted by Naive Bayes
+    #classifier.show_most_informative_features(10)
+
+print("Here I am")
+
+
+accuracy = []
+for number in range(5):
+    accuracy.append(trainClassifier())
+
+accuracyNoTfIDF = pd.DataFrame(data=accuracy, index= ["Try1", "Try2", "Try3", "Try4", "Try5"],)
+print(accuracyNoTfIDF)
+
+
+
+
+
+
+
+
