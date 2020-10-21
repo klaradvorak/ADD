@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7985e91-e452-4c3c-9df9-6e02c070d852" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/venv/Include/sentiment labelled sentences/yelp_labelled.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e7985e91-e452-4c3c-9df9-6e02c070d852" name="Default Changelist" comment="add">
       <change beforePath="$PROJECT_DIR$/venv/Include/LoadFiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Include/LoadFiles.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +120,7 @@
       <workItem from="1603200650449" duration="31000" />
       <workItem from="1603200936451" duration="8973000" />
       <workItem from="1603213666260" duration="561000" />
-      <workItem from="1603274167008" duration="16095000" />
+      <workItem from="1603274167008" duration="16420000" />
     </task>
     <task id="LOCAL-00001" summary="tf.idf fixed">
       <created>1603284448702</created>
@@ -131,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603284448703</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="without tf.idf but works">
+      <created>1603307274925</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1603307274926</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,7 +145,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="tf.idf fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="tf.idf fixed" />
+    <MESSAGE value="without tf.idf but works" />
+    <option name="LAST_COMMIT_MESSAGE" value="without tf.idf but works" />
   </component>
   <component name="WindowStateProjectService">
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1602254760047">
@@ -148,10 +154,10 @@
     </state>
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1601994524702" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.824@0.0.1536.824" timestamp="1602254760047" />
-    <state x="234" y="0" key="CommitChangelistDialog2" timestamp="1603284159383">
+    <state x="234" y="0" key="CommitChangelistDialog2" timestamp="1603307532257">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="234" y="0" key="CommitChangelistDialog2/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603284159383" />
+    <state x="234" y="0" key="CommitChangelistDialog2/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307532257" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1602774780575">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -165,25 +171,25 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="466" y="117" key="Github.UntrackedFilesDialog/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1602790712677" />
-    <state width="1493" height="217" key="GridCell.Tab.0.bottom" timestamp="1603307211154">
+    <state width="1493" height="217" key="GridCell.Tab.0.bottom" timestamp="1603307539824">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="217" key="GridCell.Tab.0.bottom/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307211154" />
+    <state width="1493" height="217" key="GridCell.Tab.0.bottom/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307539824" />
     <state width="1493" height="443" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1603214241887" />
-    <state width="1493" height="217" key="GridCell.Tab.0.center" timestamp="1603307211154">
+    <state width="1493" height="217" key="GridCell.Tab.0.center" timestamp="1603307539824">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="217" key="GridCell.Tab.0.center/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307211154" />
+    <state width="1493" height="217" key="GridCell.Tab.0.center/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307539824" />
     <state width="1493" height="443" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1603214241886" />
-    <state width="1493" height="217" key="GridCell.Tab.0.left" timestamp="1603307211154">
+    <state width="1493" height="217" key="GridCell.Tab.0.left" timestamp="1603307539824">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="217" key="GridCell.Tab.0.left/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307211154" />
+    <state width="1493" height="217" key="GridCell.Tab.0.left/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307539824" />
     <state width="1493" height="443" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1603214241886" />
-    <state width="1493" height="217" key="GridCell.Tab.0.right" timestamp="1603307211154">
+    <state width="1493" height="217" key="GridCell.Tab.0.right" timestamp="1603307539824">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="217" key="GridCell.Tab.0.right/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307211154" />
+    <state width="1493" height="217" key="GridCell.Tab.0.right/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307539824" />
     <state width="1493" height="443" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1603214241887" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1603306748912">
       <screen x="0" y="0" width="1536" height="824" />
@@ -201,13 +207,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603306748911" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1603284714800">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1603307277173">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603284714800" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824/-1280.0.1280.984@0.0.1536.824" timestamp="1603307277173" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ADD$LoadFiles.coverage" NAME="LoadFiles Coverage Results" MODIFIED="1603307211133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/venv/Include" />
+    <SUITE FILE_PATH="coverage/ADD$LoadFiles.coverage" NAME="LoadFiles Coverage Results" MODIFIED="1603307539798" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/venv/Include" />
     <SUITE FILE_PATH="coverage/ADD$Main.coverage" NAME="Main Coverage Results" MODIFIED="1601394915566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

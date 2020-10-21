@@ -47,8 +47,13 @@ for review in allDocumentsContent:
     preproccessedList = textPreproccessing(review, setOfAllWords)
     listOfAllContent.append((preproccessedList[:-1], preproccessedList[-1]))
 
+# Train Naive Bayes classifier
 featureSet = [(isFeatured(r), c) for (r,c) in listOfAllContent]
 dataSet = train_test_split(featureSet, test_size= 0.2)
 classifier = nltk.NaiveBayesClassifier.train(dataSet[0])
 
+# Test the classifier
 print(nltk.classify.accuracy(classifier, dataSet[1]))
+
+# Show the most important features as interpreted by Naive Bayes
+classifier.show_most_informative_features(10)
