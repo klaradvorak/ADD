@@ -1,8 +1,24 @@
 import nltk,os, sys, glob, re, math
+
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from sklearn.model_selection import train_test_split
 
-#normalization
+dirPath = 'C:\\Users\\klara\\PycharmProjects\\ADD\\venv\\Include\\sentiment labelled sentences\\'
+os.chdir(dirPath)
+myFiles = glob.glob('*.txt')
+
+allDocumentsContent = []
+with open(os.path.join(dirPath, 'amazon_cells_labelled.txt'), 'r') as reader:
+    allDocumentsContent = allDocumentsContent + reader.readlines()
+#print(allDocumentsContent)
+
+#splits the data for 80% training set and 20% testing set
+dataSet = train_test_split(allDocumentsContent, test_size= 0.2)
+#calculate the total number of reviews
+totalNofReviews = len(dataSet[0])
+
+#normalization function
 def textPreproccessing(text):
     lemmatizer = WordNetLemmatizer()
     stopWords = set(stopwords.words('english'))
@@ -25,36 +41,15 @@ def textPreproccessing(text):
 
     return preproccessedTokens
 
-dirPath = 'C:\\Users\\klara\\PycharmProjects\\ADD\\venv\\Include\\sentiment labelled sentences\\'
-os.chdir(dirPath)
-myFiles = glob.glob('*.txt')
-
-allDocumentsContent = []
-with open(os.path.join(dirPath, 'amazon_cells_labelled.txt'), 'r') as reader:
-    allDocumentsContent = allDocumentsContent + reader.readlines()
-
-#print(allDocumentsContent)
-
 invertedIndex = {}
-totalNOfPosivitveReviewes = 0
-totalNOfNegativeReviews = 0
-totalNofPositiveTerms = 0
-totalNofNegativeTerms = 0
+
 #create inverted indext from the data
-for line in allDocumentsContent:
+for line in dataSet[0]:
     #preprocessing
     tokens = textPreproccessing(line)
     #saves and removes positive/negative review value from tokens
     value = int(tokens[-1])
     tokens.pop()
-
-    #saves the total number of positive and negative reviews
-    if value == 0:
-        totalNOfNegativeReviews += 1
-    elif value == 1:
-        totalNOfPosivitveReviewes += 1
-    else:
-        print("Error unexpected value in tokenization")
 
     #stores tokens in dictionary with the possitive/negative value of its reviews
     for token in tokens:
@@ -63,39 +58,33 @@ for line in allDocumentsContent:
         else:
             invertedIndex[token] = [value]
 
-        if value == 0:
-            totalNofNegativeTerms += 1
-        elif value == 1:
-            totalNofPositiveTerms += 1
-        else:
-            print("Error unexpected value")
-
-
 print(invertedIndex)
-#print(totalNOfNegativeReviews)
 
-"""all code above has to be executed only once for the set, thinker with storing result in JSON or something"""
-#tf.idf weighting
-
-tfIDFweight = {}
-totalNumberOfReviews = totalNOfNegativeReviews + totalNOfPosivitveReviewes
-
-print(totalNofPositiveTerms, totalNofNegativeTerms)
-
-for term in invertedIndex:
-    negative = 0
-    positive = 0
-    for value in invertedIndex.get(term):
-        if value == 0:
-            negative += 1
+def tfCalcualtion (review):
+    tfMatrix = {}
+    for token in review:
+        if token in tfMatrix:
+            tfMatrix[token] += 1
         else:
-            positive += 1
+            tfMatrix[token] = 1
+    
+    return tfMatrix
 
-    tfPositive = positive / totalNofPositiveTerms
-    tfNegative = negative / totalNofNegativeTerms
+def idfCalculation(freqMatrix, totalNumberOfReviews):
+    idfMatrix = {}
 
-    idf = math.log10(totalNumberOfReviews / len(invertedIndex.get(term)))
+    for token in freqMatrix.keys():
+        idfMatrix[token] = math.log(totalNumberOfReviews / float(len(freqMatrix[token])))
 
-    tfIDFweight[term] = [(tfPositive * idf), (tfNegative * idf)]
+    return idfMatrix
 
-print(tfIDFweight)
+idfMatrix = idfCalculation(invertedIndex, totalNofReviews)
+
+testTFIDF = {}
+for review in dataSet[1]:
+    listOfTokens = textPreproccessing(review)
+    tfMatrix = tfCalcualtion(listOfTokens[:-1])
+    for tfScore in tfMatrix:
+        testTFIDF[tfScore] = (1 + math.log(tfMatrix[tfScore])) * idfMatrix[token]
+
+print(testTFIDF)
