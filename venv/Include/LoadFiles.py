@@ -72,9 +72,7 @@ def trainClassifier():
     # Show the most important features as interpreted by Naive Bayes
     #classifier.show_most_informative_features(10)
 
-print("Here I am")
-
-
+#testing
 accuracy = []
 for number in range(5):
     accuracy.append(trainClassifier())
