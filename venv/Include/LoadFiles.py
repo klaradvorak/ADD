@@ -1,4 +1,4 @@
-import nltk,os, sys, glob, re, math
+import nltk,os, sys, glob, re, math, random
 
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -11,18 +11,10 @@ myFiles = glob.glob('*.txt')
 allDocumentsContent = []
 with open(os.path.join(dirPath, 'amazon_cells_labelled.txt'), 'r') as reader:
     allDocumentsContent = allDocumentsContent + reader.readlines()
-#print(allDocumentsContent)
 
-#splits the data for 80% training set and 20% testing set
-dataSet = train_test_split(allDocumentsContent, test_size= 0.2)
-#calculate the total number of reviews
-totalNofReviews = len(dataSet[0])
-
-#normalization function
-def textPreproccessing(text):
+def textPreproccessing(text, setOfAllWords):
     lemmatizer = WordNetLemmatizer()
     stopWords = set(stopwords.words('english'))
-
     preproccessedTokens = []
 
     #all characters to lower letter char
@@ -38,53 +30,25 @@ def textPreproccessing(text):
         #removes stop words
         if not token in stopWords:
             preproccessedTokens.append(token)
-
+            setOfAllWords.add(token)
     return preproccessedTokens
 
-invertedIndex = {}
+def isFeatured(review):
+    reviewWords = set(review)
+    wordsOccured = {}
+    for word in setOfAllWords:
+        wordsOccured[word] = (word in reviewWords)
+    return wordsOccured
 
-#create inverted indext from the data
-for line in dataSet[0]:
-    #preprocessing
-    tokens = textPreproccessing(line)
-    #saves and removes positive/negative review value from tokens
-    value = int(tokens[-1])
-    tokens.pop()
+random.shuffle(allDocumentsContent)
+listOfAllContent = []
+setOfAllWords = set()
+for review in allDocumentsContent:
+    preproccessedList = textPreproccessing(review, setOfAllWords)
+    listOfAllContent.append((preproccessedList[:-1], preproccessedList[-1]))
 
-    #stores tokens in dictionary with the possitive/negative value of its reviews
-    for token in tokens:
-        if invertedIndex.keys().__contains__(token):
-            invertedIndex.get(token).append(value)
-        else:
-            invertedIndex[token] = [value]
+featureSet = [(isFeatured(r), c) for (r,c) in listOfAllContent]
+dataSet = train_test_split(featureSet, test_size= 0.2)
+classifier = nltk.NaiveBayesClassifier.train(dataSet[0])
 
-print(invertedIndex)
-
-def tfCalcualtion (review):
-    tfMatrix = {}
-    for token in review:
-        if token in tfMatrix:
-            tfMatrix[token] += 1
-        else:
-            tfMatrix[token] = 1
-    
-    return tfMatrix
-
-def idfCalculation(freqMatrix, totalNumberOfReviews):
-    idfMatrix = {}
-
-    for token in freqMatrix.keys():
-        idfMatrix[token] = math.log(totalNumberOfReviews / float(len(freqMatrix[token])))
-
-    return idfMatrix
-
-idfMatrix = idfCalculation(invertedIndex, totalNofReviews)
-
-testTFIDF = {}
-for review in dataSet[1]:
-    listOfTokens = textPreproccessing(review)
-    tfMatrix = tfCalcualtion(listOfTokens[:-1])
-    for tfScore in tfMatrix:
-        testTFIDF[tfScore] = (1 + math.log(tfMatrix[tfScore])) * idfMatrix[token]
-
-print(testTFIDF)
+print(nltk.classify.accuracy(classifier, dataSet[1]))
