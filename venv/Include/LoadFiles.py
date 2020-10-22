@@ -10,8 +10,9 @@ os.chdir(dirPath)
 myFiles = glob.glob('*.txt')
 
 allDocumentsContent = []
-with open(os.path.join(dirPath, 'amazon_cells_labelled.txt'), 'r') as reader:
-    allDocumentsContent = allDocumentsContent + reader.readlines()
+for textFileName in myFiles:
+    with open(os.path.join(dirPath, textFileName), 'r') as reader:
+        allDocumentsContent = allDocumentsContent + reader.readlines()
 
 setOfAllWords = set()
 
@@ -73,12 +74,16 @@ def trainClassifier():
     #classifier.show_most_informative_features(10)
 
 #testing
+print("running")
 accuracy = []
-for number in range(5):
-    accuracy.append(trainClassifier())
+avg = 0
+for number in range(10):
+    numbber =trainClassifier()
+    accuracy.append(numbber)
+    avg = avg + numbber
+print(accuracy)
+print(avg/10)
 
-accuracyNoTfIDF = pd.DataFrame(data=accuracy, index= ["Try1", "Try2", "Try3", "Try4", "Try5"],)
-print(accuracyNoTfIDF)
 
 
 
